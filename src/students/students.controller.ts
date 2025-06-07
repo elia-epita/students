@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -30,6 +31,7 @@ export class StudentsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log(id, typeof id);
     return this.studentService.findOne(id);
   }
 
