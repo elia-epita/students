@@ -25,7 +25,7 @@ export class StudentsController {
   @Get()
   async findAll(@Query() paginationQuery: PaginationQueryDto) {
     /** manual timeout to force timeout interceptor to work */
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.studentService.findAll(paginationQuery);
   }
 
