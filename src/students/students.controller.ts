@@ -22,8 +22,9 @@ export class StudentsController {
 
   @Public()
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
-    console.log("I'm here");
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    /** manual timeout to force timeout interceptor to work */
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.studentService.findAll(paginationQuery);
   }
 
