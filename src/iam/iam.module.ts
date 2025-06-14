@@ -8,6 +8,8 @@ import { User } from 'src/users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import jwtConfig from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { AccessTokenGuard } from './authentication/guards/access-token.guard';
 
 @Module({
   imports: [
@@ -19,6 +21,12 @@ import { JwtModule } from '@nestjs/jwt';
     {
       provide: HashingService, // abstract classes cannot be registered as a provider as it cannot be instantiated
       useClass: BcryptService,
+    },
+    {
+      // we are adding it here instead of on top of routes with UseGuard
+      // we will later implement a decorator to flag specific endpoints
+      provide: APP_GUARD,
+      useClass: AccessTokenGuard,
     },
     AuthenticationService,
   ],
